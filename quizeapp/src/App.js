@@ -1,6 +1,7 @@
 
 import './App.css';
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -37,22 +38,29 @@ function App() {
     setCurrentQuestion(currentQuestion + 1);
   };
   return (
-    <div className='App'>
-    {currentQuestion < questions.length ? (
-      <>
-        <h2>{questions[currentQuestion].question}</h2>
-        {questions[currentQuestion].choices.map((choice, index) => (
-          <div key={index}>
-            <button onClick={() => handleAnswer(choice)}>{choice}</button>
+    <div className="container mt-5">
+      {currentQuestion < questions.length ? (
+        <>
+          <h2>{questions[currentQuestion].question}</h2>
+          <div className="list-group mt-3">
+            {questions[currentQuestion].choices.map((choice, index) => (
+              <button
+                className="list-group-item list-group-item-action"
+                key={index}
+                onClick={() => handleAnswer(choice)}
+              >
+                {choice}
+              </button>
+            ))}
           </div>
-        ))}
-      </>
-    ) : (
-      <h2>
-        You scored {userAnswers.filter((answer, index) => answer === questions[index].answer).length} out of {questions.length}
-      </h2>
-    )}
-  </div>
+        </>
+      ) : (
+        <h2>
+          You scored{" "}
+          {userAnswers.filter((answer, index) => answer === questions[index].answer).length} out of {questions.length}
+        </h2>
+      )}
+    </div>
   );
 }
 
